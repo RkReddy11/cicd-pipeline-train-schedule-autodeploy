@@ -9,7 +9,7 @@ spec:
   ports:
   - protocol: TCP
     port: 80
-    targetPort: 8080
+    targetPort: 8443
     nodePort: 30080
 ------------------------------------
 
@@ -35,11 +35,11 @@ spec:
       - name: train-schedule
         image: rkreddy12/train-schedule-autodeploy:${BUILD_NUMBER}
         ports:
-        - containerPort: 8080
+        - containerPort: 8443
         livenessProbe:
           httpGet:
             path: /
-            port: 8080
+            port: 8443
           initialDelaySeconds: 15
           timeoutSeconds: 1
           periodSeconds: 10
