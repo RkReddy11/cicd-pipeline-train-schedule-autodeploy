@@ -9,10 +9,13 @@ spec:
     track: canary
   ports:
   - protocol: TCP
-    port: 8443
-    nodePort: 32250
+    port: 80
+    targetPort: 8443
+    nodePort: 30081
 
----
+
+------------------------------
+
 
 apiVersion: apps/v1
 kind: Deployment
@@ -21,7 +24,7 @@ metadata:
   labels:
     app: train-schedule
 spec:
-  replicas: $CANARY_REPLICAS
+  replicas: ${CANARY_REPLICAS}
   selector:
     matchLabels:
       app: train-schedule
@@ -34,9 +37,16 @@ spec:
     spec:
       containers:
       - name: train-schedule
-        image: $DOCKER_IMAGE_NAME:$BUILD_NUMBER
+        image: rkreddy12/train-schedule-autodeploy:latest
         ports:
         - containerPort: 8443
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 8443
+          initialDelaySeconds: 15
+          timeoutSeconds: 1
+          periodSeconds: 10
         resources:
           requests:
             cpu: 200m
