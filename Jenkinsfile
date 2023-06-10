@@ -42,7 +42,7 @@ stage('Canary Deploy') {
                 CANARY_REPLICAS = 1
             }
             steps {
-                sh "kubectl --kubeconfig=${KUBECONFIG_PATH} apply -f train-schedule-kube-canary.yml"
+                sh "kubectl --kubeconfig=${env.KUBECONFIG_PATH} apply -f train-schedule-kube-canary.yml"
             }
         }
 
@@ -53,8 +53,8 @@ stage('Canary Deploy') {
             steps {
                 input 'Deploy to Production?'
                 milestone(1)
-                sh "kubectl --kubeconfig=${KUBECONFIG_PATH} apply -f train-schedule-kube-canary.yml"
-                sh "kubectl --kubeconfig=${KUBECONFIG_PATH} apply -f train-schedule-kube.yml"
+                sh "kubectl --kubeconfig=${env.KUBECONFIG_PATH} apply -f train-schedule-kube-canary.yml"
+                sh "kubectl --kubeconfig=${env.KUBECONFIG_PATH} apply -f train-schedule-kube.yml"
             }
         }
     }
