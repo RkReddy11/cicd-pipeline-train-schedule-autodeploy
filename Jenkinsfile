@@ -3,6 +3,7 @@ pipeline {
 
     environment {
         DOCKER_IMAGE_NAME = "rkreddy12/train-schedule-autodeploy"
+        KUBECONFIG_PATH = "/home/rkreddy/.kube/config"
     }
 
     stages {
@@ -36,16 +37,12 @@ pipeline {
                 }
             }
         }
-
-        stage('Canary Deploy') {
+stage('Canary Deploy') {
             environment {
                 CANARY_REPLICAS = 1
             }
             steps {
-                kubernetesDeploy(
-                    configs: 'train-schedule-kube-canary.yml',
-                    enableConfigSubstitution: true
-                )
+                sh "kubectl --kubeconfig=${KUBECONFIG_PATH} apply -f train-schedule-kube-canary.yml"
             }
         }
 
@@ -56,14 +53,8 @@ pipeline {
             steps {
                 input 'Deploy to Production?'
                 milestone(1)
-                kubernetesDeploy(
-                    configs: 'train-schedule-kube-canary.yml',
-                    enableConfigSubstitution: true
-                )
-                kubernetesDeploy(
-                    configs: 'train-schedule-kube.yml',
-                    enableConfigSubstitution: true
-                )
+                sh "kubectl --kubeconfig=${KUBECONFIG_PATH} apply -f train-schedule-kube-canary.yml"
+                sh "kubectl --kubeconfig=${KUBECONFIG_PATH} apply -f train-schedule-kube.yml"
             }
         }
     }
