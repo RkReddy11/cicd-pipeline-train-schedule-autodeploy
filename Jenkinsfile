@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         DOCKER_IMAGE_NAME = "rkreddy12/train-schedule-autodeploy"
-        KUBECONFIG_PATH = "/home/rkreddy/config"
+        KUBECONFIG_PATH = "/home/rkreddy/Final-Project/cicd-pipeline-train-schedule-autodeploy/config"
     }
 
     stages {
@@ -40,7 +40,7 @@ pipeline {
         
         stage('Check Kubernetes Config') {
     steps {
-        sh 'cat /home/rkreddy/config'
+        sh 'cat /home/rkreddy/Final-Project/cicd-pipeline-train-schedule-autodeploy/config'
     }
 }
         
