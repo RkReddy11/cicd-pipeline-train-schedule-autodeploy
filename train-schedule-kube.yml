@@ -35,7 +35,7 @@ spec:
     spec:
       containers:
       - name: train-schedule
-        image: rkreddy12/train-schedule-autodeploy:latest
+        image: rkreddy12/train-schedule-autodeploy
         ports:
         - containerPort: 8443
         livenessProbe:
