@@ -14,7 +14,7 @@ spec:
     nodePort: 30081
 
 
-------------------------------
+---
 
 
 apiVersion: apps/v1
