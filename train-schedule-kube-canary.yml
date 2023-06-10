@@ -38,13 +38,6 @@ spec:
         image: rkreddy12/train-schedule-autodeploy
         ports:
         - containerPort: 8443
-        livenessProbe:
-          httpGet:
-            path: /
-            port: 8443
-          initialDelaySeconds: 15
-          timeoutSeconds: 1
-          periodSeconds: 10
         resources:
           requests:
             cpu: 200m
