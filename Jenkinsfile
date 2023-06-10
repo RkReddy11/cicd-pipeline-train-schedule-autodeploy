@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         DOCKER_IMAGE_NAME = "rkreddy12/train-schedule-autodeploy"
-        KUBECONFIG_PATH = "/home/rkreddy/.kube/config"
+        KUBECONFIG_PATH = "/home/rkreddy/config"
     }
 
     stages {
@@ -40,7 +40,7 @@ pipeline {
         
         stage('Check Kubernetes Config') {
     steps {
-        sh 'cat /home/rkreddy/.kube/config'
+        sh 'cat /home/rkreddy/config'
     }
 }
         
