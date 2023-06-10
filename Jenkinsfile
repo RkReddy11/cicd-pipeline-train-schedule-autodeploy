@@ -37,6 +37,13 @@ pipeline {
                 }
             }
         }
+        
+        stage('Check Kubernetes Config') {
+    steps {
+        sh 'cat /home/rkreddy/.kube/config'
+    }
+}
+        
 stage('Canary Deploy') {
             environment {
                 CANARY_REPLICAS = 1
